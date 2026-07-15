@@ -1,0 +1,526 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="color-scheme" content="light">
+<meta name="robots" content="noindex">
+<title>GoalZetter — Design System Brief</title>
+<meta name="description" content="Internal brief for the contractor we're hiring: current state of GoalZetter's Figma design system, the rebuild plan, and the fixed-scope budget for the engagement.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Playfair+Display:ital,wght@0,700;1,400;1,700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --ink: #1a1614;
+    --ink-2: #3d3330;
+    --ink-3: #7d7269;
+    --paper: #ffffff;
+    --line: #e5ddd8;
+    --line-2: #f0ebe8;
+    --tan: #c9a998;
+    --tan-deep: #a86b3f;
+    --tan-tint: #f6e6d8;
+    --card-bg: #fdf6f1;
+    --card-line: #e3c9b8;
+    --nav-text: #ede5e0;
+    --nav-text-dim: #b0a8a4;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font-family: 'Inter', system-ui, sans-serif;
+    background: var(--paper);
+    color: var(--ink-2);
+    -webkit-font-smoothing: antialiased;
+  }
+  h1, h2, h3, h4 { font-family: 'Playfair Display', Georgia, serif; margin: 0; }
+  b { font-weight: 600; color: var(--ink); }
+  a { color: inherit; }
+  .wrap { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+
+  /* Nav */
+  nav.topnav {
+    position: sticky; top: 0; z-index: 50;
+    background: rgba(26, 22, 20, 0.97);
+    backdrop-filter: blur(6px);
+    border-bottom: 1px solid rgba(255,255,255,0.08);
+  }
+  nav.topnav .wrap {
+    padding: 14px 32px;
+    display: flex; align-items: center; justify-content: space-between;
+    flex-wrap: wrap; gap: 10px;
+  }
+  .brand { font-weight: 600; color: var(--nav-text); font-size: 14px; letter-spacing: 0.1px; }
+  .tabs { display: flex; gap: 6px; flex-wrap: wrap; }
+  .tab-btn {
+    background: none; border: 1px solid rgba(255,255,255,0.15);
+    color: var(--nav-text-dim);
+    font-family: 'Inter', system-ui, sans-serif; font-size: 12px; font-weight: 500;
+    padding: 8px 16px; border-radius: 20px; cursor: pointer; transition: 0.15s; white-space: nowrap;
+  }
+  .tab-btn.active {
+    background: var(--tan); border-color: var(--tan); color: var(--ink); font-weight: 600;
+  }
+  .tab-btn:not(.active):hover { border-color: rgba(255,255,255,0.35); color: var(--nav-text); }
+
+  /* Hero */
+  .hero { background: var(--ink); color: var(--nav-text); padding: 64px 0 44px; }
+  .hero .eyebrow {
+    font-size: 10px; font-weight: 600; letter-spacing: 2px; color: var(--tan); text-transform: uppercase;
+  }
+  .hero h1 {
+    font-weight: 700; font-size: clamp(34px, 5vw, 48px); margin: 16px 0 8px; letter-spacing: -1px; color: var(--nav-text); line-height: 1.1;
+  }
+  .hero .sub {
+    font-style: italic; font-size: 17px; color: var(--ink-3); max-width: 560px; margin: 0 0 28px;
+  }
+  .stat-row { display: flex; flex-wrap: wrap; border-top: 1px solid rgba(255,255,255,0.12); padding-top: 20px; }
+  .stat { flex: 1 1 0%; min-width: 140px; padding-right: 24px; }
+  .stat .value { font-weight: 700; font-size: 26px; color: var(--tan); }
+  .stat .label {
+    font-size: 10px; color: var(--nav-text-dim); text-transform: uppercase; letter-spacing: 0.5px; margin-top: 4px;
+  }
+
+  main { max-width: 920px; margin: 0 auto; padding: 0 32px; }
+  .tab-panel { display: none; animation: fadein 0.25s ease; }
+  .tab-panel.active { display: block; }
+  @keyframes fadein { from { opacity: 0; transform: translateY(6px); } to { opacity: 1; transform: translateY(0); } }
+
+  .section-inner { padding: 56px 0; }
+  .section-eyebrow { font-size: 10px; font-weight: 600; letter-spacing: 1.5px; color: var(--tan); text-transform: uppercase; margin-bottom: 8px; }
+  h2.title { font-weight: 700; font-size: 28px; color: var(--ink); margin: 0 0 28px; letter-spacing: -0.5px; line-height: 1.2; }
+
+  .subnav { display: flex; gap: 20px; flex-wrap: wrap; margin: 0 0 40px; padding-bottom: 16px; border-bottom: 1px solid var(--line); }
+  .subnav a {
+    font-size: 11.5px; font-weight: 600; color: var(--tan); text-decoration: none;
+    border-bottom: 1px solid transparent; padding-bottom: 3px; transition: border-color 0.15s;
+  }
+  .subnav a:hover { border-color: var(--tan); }
+
+  .block { padding: 0 0 36px; border-bottom: 1px solid var(--line-2); scroll-margin-top: 90px; }
+  .block.no-border { border-bottom: none; }
+  .block h3 { font-weight: 700; font-size: 17px; color: var(--ink); margin: 0 0 4px; line-height: 1.3; }
+  .block h3.spaced { margin-top: 24px; }
+  .block p.lede { font-size: 14px; line-height: 1.7; color: var(--ink-2); max-width: 640px; margin: 8px 0 28px; }
+
+  .card-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 14px; }
+  .card {
+    border: 1px solid var(--card-line); border-radius: 6px; padding: 18px 20px; background: var(--card-bg);
+  }
+  .card.plain { border-color: var(--line); background: var(--paper); }
+  .badge {
+    display: inline-block; font-size: 9px; font-weight: 600; letter-spacing: 0.5px; text-transform: uppercase;
+    color: var(--tan-deep); background: var(--tan-tint); padding: 2px 8px; border-radius: 20px; margin-bottom: 8px;
+  }
+  .card h3 { font-family: 'Inter', system-ui, sans-serif; font-size: 13px; font-weight: 600; color: var(--ink); margin: 0 0 6px; line-height: 1.4; }
+  .card p { font-size: 12.5px; line-height: 1.6; color: var(--ink-2); margin: 0; }
+  .card figure { margin: 14px 0 0; }
+  .card .img-frame { border: 1px solid var(--line); border-radius: 5px; overflow: hidden; background: #f8f6f4; }
+  .card img { width: 100%; display: block; object-fit: cover; }
+  .card figcaption { font-size: 10px; color: var(--ink-3); margin: 5px 0 0; letter-spacing: 0.2px; }
+  .img-pair { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; margin-top: 14px; }
+  .img-stack { display: flex; flex-direction: column; gap: 8px; margin-top: 14px; }
+  .img-stack figure, .img-pair figure { margin: 0; }
+
+  .list { display: flex; flex-direction: column; max-width: 700px; }
+  .list-item { display: flex; flex-direction: column; gap: 8px; padding: 14px 0; border-bottom: 1px solid var(--line-2); }
+  .list-item:last-child { border-bottom: none; }
+  .list-item .row { display: flex; align-items: flex-start; gap: 10px; }
+  .dot { width: 5px; height: 5px; border-radius: 50%; background: var(--tan); flex-shrink: 0; margin-top: 7px; display: inline-block; }
+  .list-item .txt { font-size: 13px; line-height: 1.65; color: var(--ink-2); }
+  .note { color: var(--ink-3); font-size: 0.95em; }
+
+  .milestone-head {
+    background: var(--line-2); display: flex; align-items: center; justify-content: space-between;
+    padding: 10px 16px; max-width: 700px; gap: 12px; border-radius: 6px; margin: 22px 0 4px; flex-wrap: wrap;
+  }
+  .milestone-head .name { font-weight: 600; font-size: 12.5px; color: var(--ink-2); }
+  .milestone-head .price { font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-size: 17px; color: var(--tan); white-space: nowrap; }
+  .line-item {
+    display: flex; align-items: center; justify-content: space-between; max-width: 700px;
+    padding: 10px 4px; gap: 12px; border-bottom: 1px solid var(--line-2); flex-wrap: wrap;
+  }
+  .line-item .desc { font-size: 13px; color: var(--ink); flex: 1 1 0%; }
+  .line-item .meta { display: flex; align-items: center; gap: 24px; white-space: nowrap; }
+  .line-item .hours { font-size: 12px; color: var(--ink-3); }
+  .line-item .amount { font-weight: 600; font-size: 13px; color: var(--ink); }
+  .deliverable {
+    font-size: 11.5px; color: var(--ink-3); padding: 6px 4px 14px; margin: 0; line-height: 1.6;
+    max-width: 700px; border-bottom: 1px solid var(--line-2);
+  }
+  .deliverable.no-border { border-bottom: none; }
+  .total-box {
+    background: var(--ink); border-radius: 8px; display: flex; align-items: center; justify-content: space-between;
+    padding: 20px 24px; max-width: 700px; margin-top: 24px; flex-wrap: wrap; gap: 12px;
+  }
+  .total-box .label { font-style: italic; font-size: 14px; color: var(--nav-text); }
+  .total-box .value { font-weight: 700; font-size: 24px; color: var(--tan); }
+
+  .numbered-list { display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
+  .numbered-item { display: flex; gap: 12px; align-items: flex-start; }
+  .numbered-item .num { font-weight: 700; font-style: italic; color: var(--tan); font-size: 14px; width: 20px; flex-shrink: 0; }
+  .numbered-item p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--ink-2); }
+
+  .faq-list { display: flex; flex-direction: column; gap: 10px; }
+  .faq-item { border: 1px solid var(--line); border-radius: 6px; padding: 16px 18px; }
+  .faq-item .q { display: flex; gap: 14px; align-items: flex-start; }
+  .faq-item .num { font-weight: 700; font-style: italic; font-size: 16px; color: var(--tan); flex-shrink: 0; }
+  .faq-item .q-text { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink); font-weight: 600; }
+  .faq-item .a-text { margin: 8px 0 0 30px; font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+
+  @media (max-width: 680px) {
+    nav.topnav .wrap { flex-direction: column; align-items: flex-start; }
+  }
+</style>
+</head>
+<body>
+
+<nav class="topnav">
+  <div class="wrap">
+    <div class="brand">GoalZetter · Design System Brief</div>
+    <div class="tabs">
+      <button class="tab-btn active" data-tab="findings">Findings</button>
+      <button class="tab-btn" data-tab="rebuild">Rebuild Plan</button>
+      <button class="tab-btn" data-tab="faq">FAQs</button>
+    </div>
+  </div>
+</nav>
+
+<div class="hero">
+  <div class="wrap">
+    <div class="eyebrow">Design system brief</div>
+    <h1>GoalZetter</h1>
+    <p class="sub">Where our Figma design system stands today, and the scope of work we're hiring for.</p>
+    <div class="stat-row">
+      <div class="stat"><div class="value">3</div><div class="label">Product areas</div></div>
+      <div class="stat"><div class="value">2</div><div class="label">Fixed milestones</div></div>
+      <div class="stat"><div class="value">$1,800</div><div class="label">Total budget</div></div>
+      <div class="stat"><div class="value">Fixed</div><div class="label">No extensions</div></div>
+    </div>
+  </div>
+</div>
+
+<main>
+
+  <!-- FINDINGS -->
+  <section id="tab-findings" class="tab-panel active">
+    <div class="section-inner">
+      <div class="section-eyebrow">Where things stand</div>
+      <h2 class="title">Summary &amp; findings</h2>
+
+      <div class="subnav">
+        <a href="#fs-summary">Summary &amp; goal</a>
+        <a href="#fs-findings">Findings</a>
+      </div>
+
+      <div id="fs-summary" class="block">
+        <h3>Scope of work</h3>
+        <p class="lede">This covers a full audit and rebuild of our Figma design system, which underpins three product areas: the <b>Presentation Website</b>, the <b>Employee Web App</b>, and the <b>Management Dashboard</b>.</p>
+        <h3 class="spaced">The goal</h3>
+        <p class="lede">We want a properly structured, Variable-based design system where every component has a clear property structure, a documented purpose, and a build pattern that scales. Some parts of the file, and some of the visual design itself, could also see a refresh — that's a separate decision from this scope of work, and isn't included in this budget.</p>
+      </div>
+
+      <div id="fs-findings" class="block no-border">
+        <h3>What we found</h3>
+        <p class="lede">These are general findings from an initial pass, not an exhaustive component-by-component review — that level of detail is what Milestone 1 delivers. Ordered from the most significant issue to things already working well.</p>
+
+        <div class="card-grid">
+
+          <div class="card">
+            <span class="badge">Foundational</span>
+            <h3>Styles, not Variables</h3>
+            <p>Colour, spacing, radius, and grid are built with Styles rather than Variables, so there's no single source of truth and no way to support fast, systemic updates.</p>
+            <figure>
+              <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_13.36.53-1.2eb53b01-28df1b.png" alt="Figma Styles panel showing colour, text, and effect styles"></div>
+              <figcaption>Styles panel, current file</figcaption>
+            </figure>
+          </div>
+
+          <div class="card">
+            <span class="badge">Structural</span>
+            <h3>Component structure is inconsistent</h3>
+            <p>Some components shape the frame itself directly, adding radius and fill to it; others nest a rectangle inside the frame for the same purpose. Both patterns sit side by side in the same file.</p>
+            <figure>
+              <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_15.06.03.7e58971e-1ff424.png" alt="Input Email Unused component showing nested Rectangle 905/906 inside frame"></div>
+              <figcaption>Input Email Unused — nested rectangle inside frame, current file</figcaption>
+            </figure>
+          </div>
+
+          <div class="card">
+            <span class="badge">Mixed</span>
+            <h3>Properties are inconsistent, too</h3>
+            <p>Some component families are properly built with Properties, others aren't. Cards are a good example: they only have Variants, no Properties, so using one means checking the different variants and guessing which applies where.</p>
+            <div class="img-pair">
+              <figure>
+                <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_11.27.45.5874c7c0-b41d1e.png" alt="Cards component showing Variants only view in Figma"></div>
+                <figcaption>Cards, Variants only</figcaption>
+              </figure>
+              <figure>
+                <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_11.27.55.446e3adc-985792.png" alt="Cards Properties panel showing only Property 1: Default"></div>
+                <figcaption>Cards Properties panel — Property 1: Default only</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="badge">Needs redesign</span>
+            <h3>Some components aren't structurally optimised</h3>
+            <p>Buttons have properly built states and properties, but Primary, Secondary, and Tertiary exist as three separate components rather than a single Property within one Button component. That adds unnecessary duplication, and it's one of the first things to fix when this gets rebuilt.</p>
+            <div class="img-stack">
+              <figure>
+                <div class="img-frame"><img src="images/PrimaryvsSecondary.eb828570-435fa4.png" alt="Primary, Secondary and Tertiary button components shown side by side"></div>
+                <figcaption>Primary / Secondary / Tertiary buttons — three components, not one with a Type property</figcaption>
+              </figure>
+              <figure>
+                <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_15.05.31.22b4ed48-686e75.png" alt="Button layer structure showing Beige Hover state"></div>
+                <figcaption>Button layer internals, current file</figcaption>
+              </figure>
+            </div>
+          </div>
+
+          <div class="card">
+            <span class="badge">Untracked</span>
+            <h3>Some colours aren't linked to any style</h3>
+            <p>A number of colour values in the file are hardcoded rather than linked to a Style at all. Even after moving from Styles to Variables, as planned, these need to be found and linked manually first, which makes that migration more work than a straightforward swap.</p>
+            <figure>
+              <div class="img-frame"><img src="images/Colourwithoutstyle.cd662023-593d43.png" alt="Selection colors panel showing raw hex values not linked to any colour style"></div>
+              <figcaption>Selection colors panel — raw hex values, no style attached</figcaption>
+            </figure>
+          </div>
+
+          <div class="card">
+            <span class="badge">Partially built</span>
+            <h3>Some components are built but not used within the templates</h3>
+            <p>A few pieces of the system already exist but don't show up anywhere in the actual product screens, which makes those templates less useful in practice.</p>
+            <figure>
+              <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_11.23.33.b8b5c68e-15e981.png" alt="Book coach session wireframe modal component"></div>
+              <figcaption>Wireframe component — exists in system, not surfaced in product templates</figcaption>
+            </figure>
+          </div>
+
+          <div class="card">
+            <span class="badge">Needs rebuild</span>
+            <h3>Management Dashboard exists only in wireframe shape</h3>
+            <p>Management Dashboard has an early wireframe pass but no built components yet, so it needs full design and rebuild as part of this scope, not just a refresh. Presentation Website and Employee Web App are further along, though inconsistently: some workflow stages (e.g. Ready for Dev) are populated for one and empty for the other.</p>
+            <figure>
+              <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_11.13.00.6287ed7e-e26a80.png" alt="Figma page structure showing product areas and their status"></div>
+              <figcaption>File page structure — Management Dashboard shown at wireframe-only status</figcaption>
+            </figure>
+          </div>
+
+          <div class="card">
+            <span class="badge">By design</span>
+            <h3>The extra numbered pages aren't clutter</h3>
+            <p>What looks like dozens of unlabelled, numbered pages sitting alongside the real structure is intentional: they're a way of adding more pages inside the same file, rather than paying for additional Figma files or seats. Worth knowing when navigating the file, but not something to clean up.</p>
+            <figure>
+              <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_11.13.30.a964af24-365e2e.png" alt="Figma pages panel showing numbered pages 60-78"></div>
+              <figcaption>Pages panel, current file — numbered pages 60-78 kept intentionally to avoid extra Figma subscription costs</figcaption>
+            </figure>
+          </div>
+
+          <div class="card">
+            <span class="badge">Not a system</span>
+            <h3>The file is generally not annotated</h3>
+            <p>There's no consistent way for components to explain when or how to use them, which makes onboarding, or coming back to the file later, harder than it needs to be.</p>
+          </div>
+
+          <div class="card plain">
+            <span class="badge">Good shape</span>
+            <h3>Text styles</h3>
+            <p>In good shape. Most of what was reviewed is correctly linked to text styles.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- REBUILD PLAN -->
+  <section id="tab-rebuild" class="tab-panel">
+    <div class="section-inner">
+      <div class="section-eyebrow">What needs to happen</div>
+      <h2 class="title">Rebuild plan</h2>
+
+      <div class="subnav">
+        <a href="#rb-scope">Strategy</a>
+        <a href="#rb-ai">AI use</a>
+        <a href="#rb-milestones">Milestones</a>
+        <a href="#rb-budget">Budget</a>
+      </div>
+
+      <div id="rb-scope" class="block">
+        <h3>Strategy</h3>
+        <p class="lede">The strategy is:</p>
+        <div class="list">
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt"><b>Design system audit &amp; recommendations</b> — a component-by-component review across all three product areas. Every piece of the system gets categorised: keep as-is, redesign, or build from scratch. Delivered as a written summary with a clear recommendation before any building starts.</span></div>
+          </div>
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt"><b>Working session on what stays, what's redesigned, and what's gone</b> — walking through the audit findings together, aligning on direction, and confirming the scope of Milestone 2 before it starts.</span></div>
+          </div>
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt"><b>Build in Figma</b> — the rebuild follows an atomic design structure, working from the smallest unit up: Foundations (Variables, colour, typography, spacing, elevation, grid), Atoms (buttons, inputs, badges, icons), Components (cards, modals, navigation, forms), Templates (page layouts), and Pages (product-ready screens). The file structure reflects this — fewer pages, clearly named, easier to navigate day to day. AI handles the mechanical parts: setting up Variable collections, migrating existing Styles, scaffolding property structures, and batch operations across the file. The design decisions — what each component looks like and how it behaves — are made by hand.<br><br><span class="note">This is our recommended approach. Keeping the current file structure is also an option — it just carries more complexity and is harder to work from as the system grows.</span></span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="rb-ai" class="block">
+        <h3>How AI will be used</h3>
+        <p class="lede">Given how much restructuring this file needs, AI is used deliberately, and only where it speeds up mechanical work. It is never used in place of design judgment.</p>
+        <h4 class="spaced" style="font-size:14px;">AI will</h4>
+        <div style="margin-top:10px;">
+          <div class="list">
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Organise the file</b> — pages, sections, and naming conventions.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Build Variable collections</b> — colour, spacing, radius, shadow/elevation, grid, and migrate existing Styles into them via a direct Figma MCP connection.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Scaffold component properties</b> — boolean, instance-swap, and text properties, once a component's structure has been specified.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Handle batch operations</b> — renaming layers, applying styles/variables consistently across dozens of instances, restructuring pages.</span></div></div>
+          </div>
+        </div>
+        <h4 class="spaced" style="font-size:14px;">AI will not</h4>
+        <div style="margin-top:10px;">
+          <div class="list">
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Audit the file</b> — reviewing usability, structure, and scalability requires design judgment that AI review can't substitute for.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Decide what's kept, redesigned, or rebuilt</b> — a design and business decision made together with us.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Design or rebuild components visually</b> — given how inconsistent the current patterns are, this is manual design work.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Write annotation content</b> — usage guidance requires understanding our product and use cases.</span></div></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="rb-milestones" class="block">
+        <h3>Proposed milestones</h3>
+        <p class="lede">This runs as two fixed milestones, not open-ended hours, and totals $1,800 — the full budget for this engagement, with no possibility of extending beyond it. The first milestone is small and confirms exactly what needs to happen; the second is a fixed number for the rest, delivered in full for that price.</p>
+
+        <div class="milestone-head">
+          <span class="name">Milestone 1 · Exploration &amp; Recommendations · Fixed</span>
+          <span class="price">$300</span>
+        </div>
+        <div class="line-item">
+          <span class="desc">File exploration, wireframe pass &amp; recommendations</span>
+          <span class="meta"><span class="hours">10h</span><span class="amount">$300</span></span>
+        </div>
+        <p class="deliverable">Deliverable: a categorised Keep / Redesign / Build-from-Scratch list, a written findings summary, and a recommendation on whether to redesign the current system or build a new one taking inspiration from it. Reviewed together before Milestone 2 begins.</p>
+
+        <div class="milestone-head">
+          <span class="name">Milestone 2 · Foundation, Rebuild &amp; Annotation · Fixed</span>
+          <span class="price">$1,500</span>
+        </div>
+        <div class="line-item">
+          <span class="desc">Foundation — Variables, styles, file structure (AI-assisted)</span>
+          <span class="meta"><span class="hours">8h</span><span class="amount">$400</span></span>
+        </div>
+        <div class="line-item">
+          <span class="desc">Component rebuild &amp; annotation, per the agreed list</span>
+          <span class="meta"><span class="hours">~30-35h</span><span class="amount">$1,100</span></span>
+        </div>
+        <p class="deliverable no-border">Once Milestone 1 confirms the real component list, this $1,500 stays fixed regardless of what that list turns out to contain. It's not a capped number of hours that could run out partway through — and it doesn't extend beyond this project.</p>
+
+        <div class="total-box">
+          <span class="label">Total project budget</span>
+          <span class="value">$1,800 · Fixed</span>
+        </div>
+      </div>
+
+      <div id="rb-budget" class="block no-border">
+        <h3>Budget and cost</h3>
+        <p class="lede">A few things drive what actually fits inside this budget.</p>
+        <div class="numbered-list">
+          <div class="numbered-item"><span class="num">1</span><p><b>Audit:</b> across three product areas and a dozen-plus component categories, realistically 8-10 hours before any building starts.</p></div>
+          <div class="numbered-item"><span class="num">2</span><p><b>Foundation:</b> migrating Styles to Variables can be AI-assisted, but every value still needs a human review pass.</p></div>
+          <div class="numbered-item"><span class="num">3</span><p><b>Component rebuild:</b> roughly 3-4 hours per family (design plus a full Properties structure), multiplied by however many families need it.</p></div>
+          <div class="numbered-item"><span class="num">4</span><p><b>Annotation:</b> AI can help speed up the process, but each component still needs its use case thought through and written up clearly.</p></div>
+          <div class="numbered-item"><span class="num">5</span><p><b>Fixed scope:</b> $1,800 covers the whole engagement, audit through rebuild, with no possibility to extend. If Milestone 1 turns up more work than the budget can cover, the component list gets prioritised rather than the budget growing — see the FAQs.</p></div>
+        </div>
+        <p class="lede" style="margin-top:24px;">This project is budgeted at $1,800 total, fixed, split across the two milestones above. Milestone 1's findings are what determine what's realistic to fit inside Milestone 2 for that price.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="tab-faq" class="tab-panel">
+    <div class="section-inner">
+      <div class="section-eyebrow">Good to know</div>
+      <h2 class="title">FAQs</h2>
+
+      <div id="ns-questions" class="block no-border">
+        <h3 style="margin-bottom:16px;">Frequently asked questions</h3>
+        <div class="faq-list">
+
+          <div class="faq-item">
+            <div class="q"><span class="num">1</span><p class="q-text">Does the rebuild need to happen inside the current Figma file, or can it start fresh in a new one?</p></div>
+            <p class="a-text">That's something Milestone 1 will help settle properly. As far as we know, there's nothing — no active handoffs, no developer references — tied to the current file that would rule out a clean break, so come into Milestone 1 with a recommendation either way.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">2</span><p class="q-text">Is there a live site currently in production?</p></div>
+            <p class="a-text">Yes. Understanding how closely it matches the Figma file is part of Milestone 1, so scope is accurate before the rebuild starts.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">3</span><p class="q-text">Do you want any visual or style changes made while this gets rebuilt, or just the structural issues fixed?</p></div>
+            <p class="a-text">Structural fixes are the priority for this budget. A visual refresh is a separate conversation we can have once the system itself is solid — it isn't included in this $1,800.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">4</span><p class="q-text">Who uses this design system day to day?</p></div>
+            <p class="a-text">Mainly our own design and product team, plus the developers building from it — so it needs to hold up for both.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">5</span><p class="q-text">Who's building from this on the development side, and how should it be annotated?</p></div>
+            <p class="a-text">Our developers work directly off the Figma file today, so annotate in Figma rather than a separate Notion page or site — usage guidance should stay attached to the component itself.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">6</span><p class="q-text">Is there a priority order across the product areas, in case the fixed budget doesn't stretch to cover everything?</p></div>
+            <p class="a-text">Yes: Presentation Website and Employee Web App first, since they're furthest along; Management Dashboard next, since it's currently only wireframe-stage and needs a full rebuild. Milestone 1 will confirm what's realistic within $1,800.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">7</span><p class="q-text">Is the $1,800 budget fixed, or can it be extended if scope grows?</p></div>
+            <p class="a-text">It's fixed. $1,800 covers the full engagement end to end — Milestone 1 through Milestone 2 — split as shown in the Rebuild Plan. If the agreed component list turns out to be bigger than expected, we'll prioritise what's covered rather than extend the budget.</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<script>
+  (function () {
+    var buttons = document.querySelectorAll('.tab-btn');
+    var panels = document.querySelectorAll('.tab-panel');
+
+    function activate(tabName, updateHash) {
+      buttons.forEach(function (btn) {
+        btn.classList.toggle('active', btn.dataset.tab === tabName);
+      });
+      panels.forEach(function (panel) {
+        panel.classList.toggle('active', panel.id === 'tab-' + tabName);
+      });
+      if (updateHash) {
+        history.replaceState(null, '', '#' + tabName);
+      }
+    }
+
+    buttons.forEach(function (btn) {
+      btn.addEventListener('click', function () {
+        activate(btn.dataset.tab, true);
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
+    });
+
+    var initial = (location.hash || '').replace('#', '');
+    var validTabs = ['findings', 'rebuild', 'faq'];
+    if (validTabs.indexOf(initial) !== -1) {
+      activate(initial, false);
+    }
+  })();
+</script>
+
+</body>
+</html>
