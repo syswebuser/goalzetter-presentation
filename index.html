@@ -101,6 +101,7 @@
 
   .block { padding: 0 0 36px; border-bottom: 1px solid var(--line-2); scroll-margin-top: 90px; }
   .block.no-border { border-bottom: none; }
+  .block + .block { padding-top: 36px; }
   .block h3 { font-weight: 700; font-size: 17px; color: var(--ink); margin: 0 0 4px; line-height: 1.3; }
   .block h3.spaced { margin-top: 24px; }
   .block p.lede { font-size: 14px; line-height: 1.7; color: var(--ink-2); max-width: 640px; margin: 8px 0 28px; }
@@ -187,6 +188,7 @@
   }
   .instr-block { padding: 0 0 36px; border-bottom: 1px solid var(--line-2); scroll-margin-top: 90px; }
   .instr-block.no-border { border-bottom: none; }
+  .instr-block + .instr-block { padding-top: 36px; }
   .instr-block h3 { font-weight: 700; font-size: 17px; color: var(--ink); margin: 0 0 4px; line-height: 1.3; }
   .instr-block .kicker { font-size: 12px; color: var(--ink-3); font-style: italic; margin: 0 0 24px; }
   .instr-list { display: flex; flex-direction: column; gap: 14px; max-width: 720px; counter-reset: instr; }
@@ -260,7 +262,7 @@
 
       <div id="fs-summary" class="block">
         <h3>Scope of work</h3>
-        <p class="lede">This covers a full audit and rebuild of our Figma design system, which underpins three product areas: the <b>Presentation Website</b>, the <b>Employee Web App</b>, and the <b>Management Dashboard</b>.</p>
+        <p class="lede">This covers a full rebuild of our Figma design system, which underpins three product areas: the <b>Presentation Website</b>, the <b>Employee Web App</b>, and the <b>Management Dashboard</b>.</p>
         <h3 class="spaced">The goal</h3>
         <p class="lede">We want a properly structured, Variable-based design system where every component has a clear property structure, a documented purpose, and a build pattern that scales. Some parts of the file, and some of the visual design itself, could also see a refresh — that's a separate decision from this scope of work, and isn't included in this budget.</p>
       </div>
@@ -356,7 +358,7 @@
           <div class="card">
             <span class="badge">By design</span>
             <h3>The extra numbered pages aren't clutter</h3>
-            <p>What looks like dozens of unlabelled, numbered pages sitting alongside the real structure is intentional: they're a way of adding more pages inside the same file, rather than paying for additional Figma files or seats. Worth knowing when navigating the file, but not something to clean up.</p>
+            <p>What looks like dozens of unlabelled, numbered pages sitting alongside the real structure is intentional: they're a way of adding more pages inside the same file, rather than paying for additional Figma files or seats. Worth knowing when navigating the file, but not something to clean up. <span class="note">That page-vs-file trade-off changes once the multi-file setup goes live (see FAQs) — this describes the current file, not the target structure.</span></p>
             <figure>
               <div class="img-frame"><img src="images/Screenshot_2026-07-08_at_11.13.30.a964af24-365e2e.png" alt="Figma pages panel showing numbered pages 60-78"></div>
               <figcaption>Pages panel, current file — numbered pages 60-78 kept intentionally to avoid extra Figma subscription costs</figcaption>
@@ -404,7 +406,10 @@
             <div class="row"><span class="dot"></span><span class="txt"><b>Full component list, before kickoff</b> — you send us a complete list of every component you'll build. We confirm scope together against this list before Milestone 1 starts. Everywhere this brief says "the agreed list," this is what it means.</span></div>
           </div>
           <div class="list-item">
-            <div class="row"><span class="dot"></span><span class="txt"><b>Build in Figma</b> — the rebuild follows an atomic design structure, working from the smallest unit up: Foundations (Variables, colour, typography, spacing, elevation, grid), Atoms (buttons, inputs, badges, icons), Components (cards, modals, navigation, forms), Templates (page layouts), and Pages (product-ready screens). The file structure reflects this — fewer pages, clearly named, easier to navigate day to day. Full detail on how components need to be built lives in the <a href="#" onclick="gzActivateTab('instructions'); return false;" style="color: var(--tan); font-weight:600;">Designer Instructions</a> tab. AI handles the mechanical parts: setting up Variable collections, migrating existing Styles, scaffolding property structures, and batch operations across the file. The design decisions — what each component looks like and how it behaves — are made by hand.<br><br><span class="note">Building inside the current file versus starting fresh in a separate one is still an open call on our end — see the FAQs.</span></span></div>
+            <div class="row"><span class="dot"></span><span class="txt"><b>Build in Figma</b> — the rebuild follows an atomic design structure, working from the smallest unit up: Foundations (Variables, colour, typography, spacing, elevation, grid), Atoms (buttons, inputs, badges, icons), Components (cards, modals, navigation, forms), Templates (page layouts), and Pages (product-ready screens). The file structure reflects this — fewer pages, clearly named, easier to navigate day to day. Full detail on how components need to be built lives in the <a href="#" onclick="gzActivateTab('instructions'); return false;" style="color: var(--tan); font-weight:600;">Designer Instructions</a> tab. AI handles the mechanical parts: setting up Variable collections, migrating existing Styles, scaffolding property structures, and batch operations across the file. The design decisions — what each component looks like and how it behaves — are made by hand.<br><br><span class="note">Each site gets its own file, with the design system built as a separate shared library all three plug into — see the FAQs for the details.</span></span></div>
+          </div>
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt"><b>Weekly check-ins (1h)</b> — a standing weekly meeting where you walk through how things are going: what's been worked on, what's been found, progress against the plan. Presented in a way that's digestible for both the product strategist and the founders, since we're coming at this with different levels of design/technical understanding — pace and depth are things we'll figure out together rather than assume. This time is billed separately from the $1,800 fixed fee; the rate gets discussed and agreed before the engagement starts. <b>We don't expect these to be free.</b></span></div>
           </div>
           <div class="list-item">
             <div class="row"><span class="dot"></span><span class="txt"><b>Checkpoint after the pilot</b> — once the first 2-3 components are built in Milestone 1, we pause. You make sure that page meets the standard set out in the Designer Instructions, we test it, and only once it checks out does the rest of the build continue into Milestone 2.</span></div>
@@ -494,8 +499,9 @@
           <div class="numbered-item"><span class="num">4</span><p><b>Rollout:</b> once components exist, every page needs to actually use them — replacing ad-hoc instances with the single source of truth, laid out with Auto Layout throughout.</p></div>
           <div class="numbered-item"><span class="num">5</span><p><b>Annotation:</b> AI can help speed up the process, but each component still needs its use case thought through and written up clearly.</p></div>
           <div class="numbered-item"><span class="num">6</span><p><b>Fixed scope:</b> $1,800 covers the whole engagement, foundation through rollout, with no possibility to extend. If the agreed component list turns out to be more than the budget can cover, that list gets prioritised rather than the budget growing — see the FAQs.</p></div>
+          <div class="numbered-item"><span class="num">7</span><p><b>Weekly check-ins:</b> the standing 1h/week meeting sits outside this $1,800 — it's billed separately, at a rate we'll agree on before starting. Not a free add-on.</p></div>
         </div>
-        <p class="lede" style="margin-top:24px;">This project is budgeted at $1,800 total, fixed, split across the three milestones above. The component list you submit before we start is what determines what's realistic to fit inside that price.</p>
+        <p class="lede" style="margin-top:24px;">This project is budgeted at $1,800 total, fixed, split across the three milestones above. The component list you submit before we start is what determines what's realistic to fit inside that price — we expect roughly 85-90% of that submitted list to fit inside the $1,800 as scoped; anything beyond that gets prioritised rather than added to the budget.</p>
       </div>
     </div>
   </section>
@@ -587,6 +593,7 @@
 <span class="lvl0">🖼 05 – Working screens</span><br>
 <span class="lvl0">🗂 99 – Archive</span>
         </div>
+        <div class="instr-rule">This structure lives in the shared library file. Each of the three site files stays lean — it consumes components published from the library rather than repeating Foundations/Components pages of its own.</div>
 
         <div class="list" style="margin-top: 18px; max-width: 700px;">
           <div class="list-item">
@@ -617,7 +624,7 @@
 
           <div class="faq-item">
             <div class="q"><span class="num">1</span><p class="q-text">Does the rebuild need to happen inside the current Figma file, or will it start fresh in a new one?</p></div>
-            <p class="a-text">We're still deciding this ourselves — whether the rebuild stays inside the current file or starts fresh in a separate one. We'll confirm which way we're going before the engagement starts, so you'll have a clear answer going in rather than figuring it out mid-build.</p>
+            <p class="a-text">Decided: each of the three sites moves into its own file with its own access permissions, and the design system becomes a dedicated shared library that all three plug into — built once, updated everywhere. It will be taken care of and prepared for when you join as this is not currently set up.</p>
           </div>
 
           <div class="faq-item">
@@ -627,7 +634,7 @@
 
           <div class="faq-item">
             <div class="q"><span class="num">3</span><p class="q-text">Who uses this design system day to day?</p></div>
-            <p class="a-text">There's no dedicated dev team — it's just three of us: the owner, the CTO, and a product strategist (who was previously the designer, and built this system over time before moving into that role). Because of that, this needs to be built with Claude in mind: components and annotations need to be clear enough that Claude can implement directly from the Figma file, not just a human developer.</p>
+            <p class="a-text">There's no dedicated dev team — it's just three of us: the owner, the CTO, and a product strategist (who was previously the designer, and built this system over time before moving into that role). Because of that, this needs to be built with <b>Claude</b> in mind: components and annotations need to be clear enough that <b>Claude</b> can implement directly from the Figma file, not just a human developer.</p>
           </div>
 
           <div class="faq-item">
@@ -637,7 +644,7 @@
 
           <div class="faq-item">
             <div class="q"><span class="num">5</span><p class="q-text">Who's building from this on the development side, and how should it be annotated?</p></div>
-            <p class="a-text">Claude does the implementation — we don't have engineers on staff. Annotate directly in Figma, written clearly enough for Claude to build from alongside the existing codebase, rather than a separate Notion page or site.</p>
+            <p class="a-text"><b>Claude</b> does the implementation — we don't have engineers on staff. Annotate directly in Figma, written clearly enough for <b>Claude</b> to build from directly, rather than a separate Notion page or site.</p>
           </div>
 
           <div class="faq-item">
