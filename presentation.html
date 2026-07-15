@@ -158,6 +158,15 @@
   .total-box .label { font-style: italic; font-size: 14px; color: var(--nav-text); }
   .total-box .value { font-weight: 700; font-size: 24px; color: var(--tan); }
 
+  .callout {
+    border: 1px solid var(--card-line); background: var(--card-bg); border-radius: 8px;
+    padding: 16px 20px; max-width: 700px; margin-top: 16px;
+  }
+  .callout .callout-label {
+    font-size: 10px; font-weight: 700; letter-spacing: 0.8px; text-transform: uppercase; color: var(--tan-deep); margin-bottom: 6px;
+  }
+  .callout p { margin: 0; font-size: 13px; line-height: 1.65; color: var(--ink-2); }
+
   .numbered-list { display: flex; flex-direction: column; gap: 10px; max-width: 700px; }
   .numbered-item { display: flex; gap: 12px; align-items: flex-start; }
   .numbered-item .num { font-weight: 700; font-style: italic; color: var(--tan); font-size: 14px; width: 20px; flex-shrink: 0; }
@@ -169,6 +178,38 @@
   .faq-item .num { font-weight: 700; font-style: italic; font-size: 16px; color: var(--tan); flex-shrink: 0; }
   .faq-item .q-text { margin: 0; font-size: 13.5px; line-height: 1.5; color: var(--ink); font-weight: 600; }
   .faq-item .a-text { margin: 8px 0 0 30px; font-size: 12.5px; line-height: 1.6; color: var(--ink-2); }
+
+  /* Designer instructions */
+  code, .chip {
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+    font-size: 12px; background: var(--tan-tint); color: var(--tan-deep);
+    padding: 1px 6px; border-radius: 4px;
+  }
+  .instr-block { padding: 0 0 36px; border-bottom: 1px solid var(--line-2); scroll-margin-top: 90px; }
+  .instr-block.no-border { border-bottom: none; }
+  .instr-block h3 { font-weight: 700; font-size: 17px; color: var(--ink); margin: 0 0 4px; line-height: 1.3; }
+  .instr-block .kicker { font-size: 12px; color: var(--ink-3); font-style: italic; margin: 0 0 24px; }
+  .instr-list { display: flex; flex-direction: column; gap: 14px; max-width: 720px; counter-reset: instr; }
+  .instr-item { display: flex; gap: 12px; align-items: flex-start; }
+  .instr-item .n {
+    counter-increment: instr; font-family: 'Playfair Display', Georgia, serif; font-weight: 700; font-style: italic;
+    color: var(--tan); font-size: 14px; width: 20px; flex-shrink: 0;
+  }
+  .instr-item .n::before { content: counter(instr); }
+  .instr-item p { margin: 0 0 6px; font-size: 13px; line-height: 1.65; color: var(--ink-2); }
+  .instr-sub { list-style: none; margin: 6px 0 6px; padding: 0; display: flex; flex-direction: column; gap: 5px; }
+  .instr-sub li { font-size: 12.5px; line-height: 1.6; color: var(--ink-2); padding-left: 14px; position: relative; }
+  .instr-sub li::before { content: '–'; position: absolute; left: 0; color: var(--ink-3); }
+  .instr-rule {
+    background: var(--card-bg); border: 1px solid var(--card-line); border-radius: 6px;
+    padding: 10px 14px; font-size: 12px; color: var(--ink-2); margin: 6px 0 0; max-width: 640px;
+  }
+  .page-order {
+    background: var(--ink); color: var(--nav-text); border-radius: 8px; padding: 18px 22px;
+    font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace; font-size: 13px; line-height: 2;
+    max-width: 520px; margin: 14px 0;
+  }
+  .page-order .lvl0 { color: var(--tan); }
 
   @media (max-width: 680px) {
     nav.topnav .wrap { flex-direction: column; align-items: flex-start; }
@@ -183,6 +224,7 @@
     <div class="tabs">
       <button class="tab-btn active" data-tab="findings">Findings</button>
       <button class="tab-btn" data-tab="rebuild">Rebuild Plan</button>
+      <button class="tab-btn" data-tab="instructions">Designer Instructions</button>
       <button class="tab-btn" data-tab="faq">FAQs</button>
     </div>
   </div>
@@ -195,7 +237,8 @@
     <p class="sub">Where our Figma design system stands today, and the scope of work we're hiring for.</p>
     <div class="stat-row">
       <div class="stat"><div class="value">3</div><div class="label">Product areas</div></div>
-      <div class="stat"><div class="value">2</div><div class="label">Fixed milestones</div></div>
+      <div class="stat"><div class="value">3</div><div class="label">Fixed milestones</div></div>
+      <div class="stat"><div class="value">70-80h</div><div class="label">Estimated hours</div></div>
       <div class="stat"><div class="value">$1,800</div><div class="label">Total budget</div></div>
       <div class="stat"><div class="value">Fixed</div><div class="label">No extensions</div></div>
     </div>
@@ -224,7 +267,7 @@
 
       <div id="fs-findings" class="block no-border">
         <h3>What we found</h3>
-        <p class="lede">These are general findings from an initial pass, not an exhaustive component-by-component review — that level of detail is what Milestone 1 delivers. Ordered from the most significant issue to things already working well.</p>
+        <p class="lede">These are general findings from an initial pass, not an exhaustive component-by-component review — that level of detail is what your own file exploration, before this engagement starts, will surface. Ordered from the most significant issue to things already working well.</p>
 
         <div class="card-grid">
 
@@ -265,7 +308,7 @@
           </div>
 
           <div class="card">
-            <span class="badge">Needs redesign</span>
+            <span class="badge">Needs restructuring</span>
             <h3>Some components aren't structurally optimised</h3>
             <p>Buttons have properly built states and properties, but Primary, Secondary, and Tertiary exist as three separate components rather than a single Property within one Button component. That adds unnecessary duplication, and it's one of the first things to fix when this gets rebuilt.</p>
             <div class="img-stack">
@@ -352,16 +395,19 @@
 
       <div id="rb-scope" class="block">
         <h3>Strategy</h3>
-        <p class="lede">The strategy is:</p>
+        <p class="lede">This is not a redesign. It's building the design system properly and applying it everywhere: clean components with one source of truth, pages built from them with Auto Layout, cleanly named layers. The strategy is:</p>
         <div class="list">
           <div class="list-item">
-            <div class="row"><span class="dot"></span><span class="txt"><b>Design system audit &amp; recommendations</b> — a component-by-component review across all three product areas. Every piece of the system gets categorised: keep as-is, redesign, or build from scratch. Delivered as a written summary with a clear recommendation before any building starts.</span></div>
+            <div class="row"><span class="dot"></span><span class="txt"><b>File exploration, on your own time</b> — before this engagement starts, you explore the current Figma file yourself and decide whether you're happy to take this on. This isn't billed, and it isn't a written audit or a set of redesign recommendations — just enough digging to know what you'd be signing up for.</span></div>
           </div>
           <div class="list-item">
-            <div class="row"><span class="dot"></span><span class="txt"><b>Working session on what stays, what's redesigned, and what's gone</b> — walking through the audit findings together, aligning on direction, and confirming the scope of Milestone 2 before it starts.</span></div>
+            <div class="row"><span class="dot"></span><span class="txt"><b>Full component list, before kickoff</b> — you send us a complete list of every component you'll build. We confirm scope together against this list before Milestone 1 starts. Everywhere this brief says "the agreed list," this is what it means.</span></div>
           </div>
           <div class="list-item">
-            <div class="row"><span class="dot"></span><span class="txt"><b>Build in Figma</b> — the rebuild follows an atomic design structure, working from the smallest unit up: Foundations (Variables, colour, typography, spacing, elevation, grid), Atoms (buttons, inputs, badges, icons), Components (cards, modals, navigation, forms), Templates (page layouts), and Pages (product-ready screens). The file structure reflects this — fewer pages, clearly named, easier to navigate day to day. AI handles the mechanical parts: setting up Variable collections, migrating existing Styles, scaffolding property structures, and batch operations across the file. The design decisions — what each component looks like and how it behaves — are made by hand.<br><br><span class="note">This is our recommended approach. Keeping the current file structure is also an option — it just carries more complexity and is harder to work from as the system grows.</span></span></div>
+            <div class="row"><span class="dot"></span><span class="txt"><b>Build in Figma</b> — the rebuild follows an atomic design structure, working from the smallest unit up: Foundations (Variables, colour, typography, spacing, elevation, grid), Atoms (buttons, inputs, badges, icons), Components (cards, modals, navigation, forms), Templates (page layouts), and Pages (product-ready screens). The file structure reflects this — fewer pages, clearly named, easier to navigate day to day. Full detail on how components need to be built lives in the <a href="#" onclick="gzActivateTab('instructions'); return false;" style="color: var(--tan); font-weight:600;">Designer Instructions</a> tab. AI handles the mechanical parts: setting up Variable collections, migrating existing Styles, scaffolding property structures, and batch operations across the file. The design decisions — what each component looks like and how it behaves — are made by hand.<br><br><span class="note">Building inside the current file versus starting fresh in a separate one is still an open call on our end — see the FAQs.</span></span></div>
+          </div>
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt"><b>Checkpoint after the pilot</b> — once the first 2-3 components are built in Milestone 1, we pause. You make sure that page meets the standard set out in the Designer Instructions, we test it, and only once it checks out does the rest of the build continue into Milestone 2.</span></div>
           </div>
         </div>
       </div>
@@ -381,9 +427,9 @@
         <h4 class="spaced" style="font-size:14px;">AI will not</h4>
         <div style="margin-top:10px;">
           <div class="list">
-            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Audit the file</b> — reviewing usability, structure, and scalability requires design judgment that AI review can't substitute for.</span></div></div>
-            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Decide what's kept, redesigned, or rebuilt</b> — a design and business decision made together with us.</span></div></div>
-            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Design or rebuild components visually</b> — given how inconsistent the current patterns are, this is manual design work.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Evaluate the file</b> — reviewing structure and scalability requires design judgment that AI review can't substitute for.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Decide what gets built or how it's structured</b> — a decision made together with us, not left to AI. This is not a redesign, so there's no "keep vs. redesign" call to make — just what gets built, matching the Designer Instructions.</span></div></div>
+            <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Build components visually</b> — given how inconsistent the current patterns are, turning them into one clean component is manual design work.</span></div></div>
             <div class="list-item"><div class="row"><span class="dot"></span><span class="txt"><b>Write annotation content</b> — usage guidance requires understanding our product and use cases.</span></div></div>
           </div>
         </div>
@@ -391,35 +437,50 @@
 
       <div id="rb-milestones" class="block">
         <h3>Proposed milestones</h3>
-        <p class="lede">This runs as two fixed milestones, not open-ended hours, and totals $1,800 — the full budget for this engagement, with no possibility of extending beyond it. The first milestone is small and confirms exactly what needs to happen; the second is a fixed number for the rest, delivered in full for that price.</p>
+        <p class="lede">This runs as three fixed milestones, not open-ended hours, and totals $1,800 — the full budget for this engagement, with no possibility of extending beyond it. The first sets up the foundation and a small pilot batch of components, tested against the Designer Instructions before anything else is built. The second builds out every remaining component on the agreed list. The third rolls those components out across every page and adds annotation.</p>
 
         <div class="milestone-head">
-          <span class="name">Milestone 1 · Exploration &amp; Recommendations · Fixed</span>
-          <span class="price">$300</span>
+          <span class="name">Milestone 1 · Foundation &amp; Pilot Components · Fixed</span>
+          <span class="price">$400</span>
         </div>
         <div class="line-item">
-          <span class="desc">File exploration, wireframe pass &amp; recommendations</span>
-          <span class="meta"><span class="hours">10h</span><span class="amount">$300</span></span>
+          <span class="desc">Foundation — Variables (Primitives + Semantic collections), file/page structure (AI-assisted)</span>
+          <span class="meta"><span class="hours">9h</span><span class="amount">$250</span></span>
         </div>
-        <p class="deliverable">Deliverable: a categorised Keep / Redesign / Build-from-Scratch list, a written findings summary, and a recommendation on whether to redesign the current system or build a new one taking inspiration from it. Reviewed together before Milestone 2 begins.</p>
+        <div class="line-item">
+          <span class="desc">Pilot build — first 2-3 components, built to the Designer Instructions spec</span>
+          <span class="meta"><span class="hours">6h</span><span class="amount">$150</span></span>
+        </div>
+        <p class="deliverable">Deliverable: Foundation variables in place, plus 2-3 fully-specified pilot components. We test these against the Designer Instructions checkpoint before Milestone 2 begins — no further building happens until the pattern checks out.</p>
 
         <div class="milestone-head">
-          <span class="name">Milestone 2 · Foundation, Rebuild &amp; Annotation · Fixed</span>
-          <span class="price">$1,500</span>
+          <span class="name">Milestone 2 · Component Rebuild · Fixed</span>
+          <span class="price">$1,150</span>
         </div>
         <div class="line-item">
-          <span class="desc">Foundation — Variables, styles, file structure (AI-assisted)</span>
-          <span class="meta"><span class="hours">8h</span><span class="amount">$400</span></span>
+          <span class="desc">Remaining component rebuild, per the agreed list</span>
+          <span class="meta"><span class="hours">~48-56h</span><span class="amount">$1,150</span></span>
+        </div>
+        <p class="deliverable">Deliverable: every component on the agreed list, built to the Designer Instructions spec, following the pattern confirmed by Milestone 1's pilot. This $1,150 stays fixed regardless of exactly how the agreed list breaks down — reviewed together before rollout begins in Milestone 3.</p>
+
+        <div class="milestone-head">
+          <span class="name">Milestone 3 · Rollout &amp; Annotation · Fixed</span>
+          <span class="price">$250</span>
         </div>
         <div class="line-item">
-          <span class="desc">Component rebuild &amp; annotation, per the agreed list</span>
-          <span class="meta"><span class="hours">~30-35h</span><span class="amount">$1,100</span></span>
+          <span class="desc">Rollout across every page (single source of truth, Auto Layout) &amp; annotation</span>
+          <span class="meta"><span class="hours">~7-9h</span><span class="amount">$250</span></span>
         </div>
-        <p class="deliverable no-border">Once Milestone 1 confirms the real component list, this $1,500 stays fixed regardless of what that list turns out to contain. It's not a capped number of hours that could run out partway through — and it doesn't extend beyond this project.</p>
+        <p class="deliverable no-border">Deliverable: every page rebuilt using these components — single source of truth, Auto Layout throughout — plus annotation for each one. This $250 stays fixed and doesn't extend beyond this project.</p>
 
         <div class="total-box">
           <span class="label">Total project budget</span>
           <span class="value">$1,800 · Fixed</span>
+        </div>
+
+        <div class="callout">
+          <div class="callout-label">Important — hours vs. fixed fee</div>
+          <p>We expect this to take roughly <b>70-80 hours</b> of total work across all three milestones. The $1,800 is a fixed project fee agreed upfront, not calculated hourly — we want that trade-off to be transparent before you commit to the engagement.</p>
         </div>
       </div>
 
@@ -427,13 +488,119 @@
         <h3>Budget and cost</h3>
         <p class="lede">A few things drive what actually fits inside this budget.</p>
         <div class="numbered-list">
-          <div class="numbered-item"><span class="num">1</span><p><b>Audit:</b> across three product areas and a dozen-plus component categories, realistically 8-10 hours before any building starts.</p></div>
-          <div class="numbered-item"><span class="num">2</span><p><b>Foundation:</b> migrating Styles to Variables can be AI-assisted, but every value still needs a human review pass.</p></div>
-          <div class="numbered-item"><span class="num">3</span><p><b>Component rebuild:</b> roughly 3-4 hours per family (design plus a full Properties structure), multiplied by however many families need it.</p></div>
-          <div class="numbered-item"><span class="num">4</span><p><b>Annotation:</b> AI can help speed up the process, but each component still needs its use case thought through and written up clearly.</p></div>
-          <div class="numbered-item"><span class="num">5</span><p><b>Fixed scope:</b> $1,800 covers the whole engagement, audit through rebuild, with no possibility to extend. If Milestone 1 turns up more work than the budget can cover, the component list gets prioritised rather than the budget growing — see the FAQs.</p></div>
+          <div class="numbered-item"><span class="num">1</span><p><b>Foundation:</b> setting up Primitives and Semantic variable collections can be AI-assisted, but every value still needs a human review pass.</p></div>
+          <div class="numbered-item"><span class="num">2</span><p><b>Pilot components:</b> the first 2-3 components get built fully to spec before the checkpoint, to prove out the pattern before it's applied everywhere.</p></div>
+          <div class="numbered-item"><span class="num">3</span><p><b>Component rebuild:</b> roughly 3-4 hours per family (design plus a full Properties structure), multiplied by however many families are on the agreed list — this is where most of the 70-80 hour estimate comes from.</p></div>
+          <div class="numbered-item"><span class="num">4</span><p><b>Rollout:</b> once components exist, every page needs to actually use them — replacing ad-hoc instances with the single source of truth, laid out with Auto Layout throughout.</p></div>
+          <div class="numbered-item"><span class="num">5</span><p><b>Annotation:</b> AI can help speed up the process, but each component still needs its use case thought through and written up clearly.</p></div>
+          <div class="numbered-item"><span class="num">6</span><p><b>Fixed scope:</b> $1,800 covers the whole engagement, foundation through rollout, with no possibility to extend. If the agreed component list turns out to be more than the budget can cover, that list gets prioritised rather than the budget growing — see the FAQs.</p></div>
         </div>
-        <p class="lede" style="margin-top:24px;">This project is budgeted at $1,800 total, fixed, split across the two milestones above. Milestone 1's findings are what determine what's realistic to fit inside Milestone 2 for that price.</p>
+        <p class="lede" style="margin-top:24px;">This project is budgeted at $1,800 total, fixed, split across the three milestones above. The component list you submit before we start is what determines what's realistic to fit inside that price.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- DESIGNER INSTRUCTIONS -->
+  <section id="tab-instructions" class="tab-panel">
+    <div class="section-inner">
+      <div class="section-eyebrow">Build to this spec</div>
+      <h2 class="title">Designer instructions</h2>
+
+      <div class="subnav">
+        <a href="#di-foundation">Foundation setup</a>
+        <a href="#di-org">File organization</a>
+        <a href="#di-checkpoint">Checkpoint</a>
+      </div>
+
+      <div id="di-foundation" class="instr-block">
+        <h3>Foundation setup</h3>
+        <p class="kicker">Do these first, before any component work.</p>
+        <div class="instr-list">
+
+          <div class="instr-item">
+            <span class="n"></span>
+            <div>
+              <p>Every color, spacing value, radius, font size, and shadow lives as a Figma variable. No raw hex, no ad-hoc pixel values inside components. If you feel tempted to type <code>#FF6B6B</code> directly, stop and add a variable.</p>
+            </div>
+          </div>
+
+          <div class="instr-item">
+            <span class="n"></span>
+            <div>
+              <p>Structure variables in two collections:</p>
+              <ul class="instr-sub">
+                <li><b>Primitives</b> — raw scale values (<code>color/blue/500</code>, <code>space/4</code>, <code>radius/md</code>, <code>font/size/16</code>)</li>
+                <li><b>Semantic</b> — meaning-based, references primitives (<code>color/bg/surface</code>, <code>color/text/primary</code>, <code>space/gap/card</code>, <code>radius/button</code>)</li>
+              </ul>
+              <div class="instr-rule">Rule: components use only semantic variables. Primitives exist to define semantic ones.</div>
+            </div>
+          </div>
+
+          <div class="instr-item">
+            <span class="n"></span>
+            <div>
+              <p>Variable names use forward slashes for hierarchy. <code>color/bg/surface</code>, not <code>Color - BG - Surface</code> or <code>colorBgSurface</code>. This exact naming becomes the CSS variable and JSON key the developer uses. Case-sensitive, hyphen for word breaks (<code>surface-hover</code>, not <code>surfaceHover</code>).</p>
+            </div>
+          </div>
+
+          <div class="instr-item">
+            <span class="n"></span>
+            <div>
+              <p>Component names match code component names exactly. If it's a Button in Figma, it's Button in code. Property names too: <code>variant</code>, <code>size</code>, <code>disabled</code>. Values: <code>primary</code>, <code>secondary</code>, <code>ghost</code>, <code>sm</code>, <code>md</code>, <code>lg</code> — exact case, exact spelling.</p>
+            </div>
+          </div>
+
+          <div class="instr-item">
+            <span class="n"></span>
+            <div>
+              <p>Prefer boolean and instance-swap properties over variants wherever the states aren't mutually exclusive:</p>
+              <ul class="instr-sub">
+                <li><code>disabled</code>, <code>loading</code> → boolean properties</li>
+                <li><code>iconLeft</code>, <code>iconRight</code> → instance-swap properties</li>
+                <li><code>label</code> → text property</li>
+                <li>Only use variants for genuinely mutually exclusive dimensions like <code>variant</code> and <code>size</code></li>
+              </ul>
+            </div>
+          </div>
+
+          <div class="instr-item">
+            <span class="n"></span>
+            <div>
+              <p>Everything uses Auto Layout. No absolute positioning inside components. Spacing between elements uses variables from the <code>space/*</code> scale, never typed numbers.</p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div id="di-org" class="instr-block">
+        <h3>File organization</h3>
+        <p class="kicker">Non-negotiable for AI compatibility.</p>
+
+        <p style="font-size:13px; color: var(--ink-2); margin: 0 0 4px;">Page order inside the DS file:</p>
+        <div class="page-order">
+<span class="lvl0">📖 00 – Cover &amp; Guidelines</span><br>
+<span class="lvl0">🎨 01 – Foundations</span> (color, type, spacing, radius, shadow)<br>
+<span class="lvl0">🧩 02 – Components – Primitives</span><br>
+<span class="lvl0">🧩 03 – Components – Composed</span><br>
+<span class="lvl0">📐 04 – Patterns</span><br>
+<span class="lvl0">🖼 05 – Working screens</span><br>
+<span class="lvl0">🗂 99 – Archive</span>
+        </div>
+
+        <div class="list" style="margin-top: 18px; max-width: 700px;">
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt">Layers are named descriptively. <code>Rectangle 47</code> and <code>Frame 923</code> are useless to an AI (and to a developer). Every meaningful layer gets a name: <code>hero-image</code>, <code>cta-primary</code>, <code>card-body</code>.</span></div>
+          </div>
+          <div class="list-item">
+            <div class="row"><span class="dot"></span><span class="txt">No detached instances in production frames. If you need to override something, use component properties. Detached instances break the mapping from design to code.</span></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="di-checkpoint" class="instr-block no-border">
+        <h3>Checkpoint</h3>
+        <p class="lede">After the first 2-3 components are built (Milestone 1's pilot batch), we pause: you make that page match the standard above, we test it, and only once it checks out does the rest of the build continue into Milestone 2. See <a href="#" onclick="gzActivateTab('rebuild'); return false;" style="color: var(--tan); font-weight:600;">Rebuild Plan</a> for how this fits into the milestones and budget.</p>
       </div>
     </div>
   </section>
@@ -449,38 +616,38 @@
         <div class="faq-list">
 
           <div class="faq-item">
-            <div class="q"><span class="num">1</span><p class="q-text">Does the rebuild need to happen inside the current Figma file, or can it start fresh in a new one?</p></div>
-            <p class="a-text">That's something Milestone 1 will help settle properly. As far as we know, there's nothing — no active handoffs, no developer references — tied to the current file that would rule out a clean break, so come into Milestone 1 with a recommendation either way.</p>
+            <div class="q"><span class="num">1</span><p class="q-text">Does the rebuild need to happen inside the current Figma file, or will it start fresh in a new one?</p></div>
+            <p class="a-text">We're still deciding this ourselves — whether the rebuild stays inside the current file or starts fresh in a separate one. We'll confirm which way we're going before the engagement starts, so you'll have a clear answer going in rather than figuring it out mid-build.</p>
           </div>
 
           <div class="faq-item">
-            <div class="q"><span class="num">2</span><p class="q-text">Is there a live site currently in production?</p></div>
-            <p class="a-text">Yes. Understanding how closely it matches the Figma file is part of Milestone 1, so scope is accurate before the rebuild starts.</p>
-          </div>
-
-          <div class="faq-item">
-            <div class="q"><span class="num">3</span><p class="q-text">Do you want any visual or style changes made while this gets rebuilt, or just the structural issues fixed?</p></div>
+            <div class="q"><span class="num">2</span><p class="q-text">Do you want any visual or style changes made while this gets rebuilt, or just the structural issues fixed?</p></div>
             <p class="a-text">Structural fixes are the priority for this budget. A visual refresh is a separate conversation we can have once the system itself is solid — it isn't included in this $1,800.</p>
           </div>
 
           <div class="faq-item">
-            <div class="q"><span class="num">4</span><p class="q-text">Who uses this design system day to day?</p></div>
-            <p class="a-text">Mainly our own design and product team, plus the developers building from it — so it needs to hold up for both.</p>
+            <div class="q"><span class="num">3</span><p class="q-text">Who uses this design system day to day?</p></div>
+            <p class="a-text">There's no dedicated dev team — it's just three of us: the owner, the CTO, and a product strategist (who was previously the designer, and built this system over time before moving into that role). Because of that, this needs to be built with Claude in mind: components and annotations need to be clear enough that Claude can implement directly from the Figma file, not just a human developer.</p>
+          </div>
+
+          <div class="faq-item">
+            <div class="q"><span class="num">4</span><p class="q-text">Could this turn into an ongoing collaboration beyond this fixed-scope project?</p></div>
+            <p class="a-text">Possibly. Our product strategist was previously the designer who built this system over time before moving into that role — if this engagement goes well, there's real potential to extend into a longer-term working relationship beyond this initial $1,800 scope.</p>
           </div>
 
           <div class="faq-item">
             <div class="q"><span class="num">5</span><p class="q-text">Who's building from this on the development side, and how should it be annotated?</p></div>
-            <p class="a-text">Our developers work directly off the Figma file today, so annotate in Figma rather than a separate Notion page or site — usage guidance should stay attached to the component itself.</p>
+            <p class="a-text">Claude does the implementation — we don't have engineers on staff. Annotate directly in Figma, written clearly enough for Claude to build from alongside the existing codebase, rather than a separate Notion page or site.</p>
           </div>
 
           <div class="faq-item">
             <div class="q"><span class="num">6</span><p class="q-text">Is there a priority order across the product areas, in case the fixed budget doesn't stretch to cover everything?</p></div>
-            <p class="a-text">Yes: Presentation Website and Employee Web App first, since they're furthest along; Management Dashboard next, since it's currently only wireframe-stage and needs a full rebuild. Milestone 1 will confirm what's realistic within $1,800.</p>
+            <p class="a-text">Yes: Presentation Website and Employee Web App first, since they're furthest along; Management Dashboard next, since it's currently only wireframe-stage and needs a full rebuild. Your component list, submitted before we start, is what confirms what's realistic within $1,800.</p>
           </div>
 
           <div class="faq-item">
             <div class="q"><span class="num">7</span><p class="q-text">Is the $1,800 budget fixed, or can it be extended if scope grows?</p></div>
-            <p class="a-text">It's fixed. $1,800 covers the full engagement end to end — Milestone 1 through Milestone 2 — split as shown in the Rebuild Plan. If the agreed component list turns out to be bigger than expected, we'll prioritise what's covered rather than extend the budget.</p>
+            <p class="a-text">It's fixed. $1,800 covers the full engagement end to end — Milestone 1 through Milestone 3 — split as shown in the Rebuild Plan. If the agreed component list turns out to be bigger than expected, we'll prioritise what's covered rather than extend the budget.</p>
           </div>
 
         </div>
@@ -514,8 +681,13 @@
       });
     });
 
+    window.gzActivateTab = function (tabName) {
+      activate(tabName, true);
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+
     var initial = (location.hash || '').replace('#', '');
-    var validTabs = ['findings', 'rebuild', 'faq'];
+    var validTabs = ['findings', 'rebuild', 'instructions', 'faq'];
     if (validTabs.indexOf(initial) !== -1) {
       activate(initial, false);
     }
